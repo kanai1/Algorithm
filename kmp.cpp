@@ -47,10 +47,10 @@ vector<int> kmp(string& s, string& p)
 int main()
 {
     string s, p;
-    getline(cin, s);
-    getline(cin, p);
+    getline(cin, s); // 주어진 문자열
+    getline(cin, p); // 부분문자열
     auto cnt = kmp(s, p);
-    cout << (int)cnt.size() << "\n";
-    for(auto i : cnt)
-        cout << i + 1 << " ";
+    cout << (int)cnt.size() << "\n"; //부분문자열의 개수
+    for(auto i : cnt) cout << i + 1 << " "; //부분문자열의 시작위치
+    return 0;
 }
