@@ -32,3 +32,30 @@ int countDate(struct date day)
 
    return sum; //0년 1월 1일 = 1
 }
+
+date itoday(int n)
+{
+   struct date day;
+   
+   //년도 처리
+   for(int i = 0; n >= 365 + leapyear(i); i++)
+   {
+      n-=(365+leapyear(i));
+      day.year++;
+   }
+
+   //월 처리
+   for(int i = 1; n > month[i]; i++)
+   {
+      n-=month[i];
+      day.month++;
+   }
+
+   //윤년처리
+   if(day.month > 2) n-=leapyear(day.year);
+
+   //일 처리
+   day.day = n;
+
+   return day;
+}
