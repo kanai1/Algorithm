@@ -3,11 +3,6 @@
 #include <sstream>
 #include <cmath>
 
-inline long long int abs(long long int num)
-{
-    return ((num > 0) ? num : -num);
-}
-
 class bigint
 {
 private:
@@ -137,6 +132,8 @@ public:
         std::string n1 = num1.num;
         std::string n2 = num2.num;
 
+        result.num = "";
+
         std::reverse(n1.begin(), n1.end());
         std::reverse(n2.begin(), n2.end());
 
@@ -157,9 +154,27 @@ public:
         return result;
     }
 
-    friend bigint operator+(const bigint& num1, std::string n2)
+    friend bigint operator+(const bigint& num1, int num2)
     {
-        bigint tmp(n2);
+        bigint tmp(num2);
+        return (num1 + tmp);
+    }
+
+    friend bigint operator+(const bigint& num1, long long int num2)
+    {
+        bigint tmp(num2);
+        return (num1 + tmp);
+    }
+
+    friend bigint operator+(const bigint& num1, std::string num2)
+    {
+        bigint tmp(num2);
+        return (num1 + tmp);
+    }
+
+    friend bigint operator+(const bigint& num1, const char* num2)
+    {
+        bigint tmp(num2);
         return (num1 + tmp);
     }
 
@@ -182,12 +197,14 @@ public:
         std::string n1 = num1.num;
         std::string n2 = num2.num;
 
+        result.num = "";
+
         std::reverse(n1.begin(), n1.end());
         std::reverse(n2.begin(), n2.end());
 
         for(int i = 0; i < n1.size() || i < n2.size(); i++)
         {
-
+            //todo 뺄셈구현
         }
 
         return result;
