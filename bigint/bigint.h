@@ -28,6 +28,20 @@ public:
     friend bigint operator-(const bigint& num1, const bigint& num2);
     // friend bigint operator*(const bigint& num1, const bigint& num2);
     // friend bigint operator/(const bigint& num1, const bigint& num2);
+    // friend bigint operator%(const bigint& num1, const bigint& num2);
+
+    bigint operator++(int);
+    bigint& operator++();
+    bigint operator--(int);
+    bigint& operator--();
+
+    friend bigint operator+=(bigint& num1, const bigint& num2) { return num1 = num1 + num2; }
+    friend bigint operator-=(bigint& num1, const bigint& num2) { return num1 = num1 - num2; }
+    // friend bigint operator*=(bigint& num1, const bigint& num2) { return num1 = num1 * num2; }
+    // friend bigint operator/=(bigint& num1, const bigint& num2) { return num1 = num1 / num2; }
+    // friend bigint operator%=(bigint& num2, const bigint& num2) { return num1 = num1 % num2; }
+
+
 
     bigint& operator=(const bigint& num);
 
