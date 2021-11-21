@@ -178,23 +178,53 @@ bigint operator-(const bigint& num1, const bigint& num2)
     return result;
 }
 
-// bigint operator*(const bigint& num1, const bigint& num2)
-// {
-//     bigint result;
+/* 
+bigint operator*(const bigint& num1, const bigint& num2)
+{
+    bigint result;
 
-//     result.isminus = num1.isminus ^ num2.isminus;
+    result.isminus = num1.isminus ^ num2.isminus;
 
-//     //todo 곱셈구현
+    //todo 곱셈구현
 
-//     return result;
-// }
+    return result;
+}
 
-// bigint operator/(const bigint& num1, const bigint& num2)
-// {
-//     bigint reuslt;
+bigint operator/(const bigint& num1, const bigint& num2)
+{
+    bigint reuslt;
 
-//     return result;
-// }
+    //todo 나눗셈 구현
+
+    return result;
+}
+*/
+
+bigint bigint::operator++(int)
+{
+    bigint tmp(*this);
+    *this += 1;
+    return tmp;
+}
+
+bigint& bigint::operator++()
+{
+    *this += 1;
+    return *this;
+}
+
+bigint bigint::operator--(int)
+{
+    bigint tmp(*this);
+    *this -= 1;
+    return tmp;
+}
+
+bigint& bigint::operator--()
+{
+    *this -= 1;
+    return *this;
+}
 
 bigint& bigint::operator=(const bigint& num)
 {
