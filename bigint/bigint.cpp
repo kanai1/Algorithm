@@ -39,14 +39,15 @@ bigint::bigint(std::string num)
 {
     if(num[0] == '-')
     {
-        num.erase(0);
+        num.erase(0, 1);
         isminus = true;
     }
 
     while(num[0] == '0')
     {
-        num.erase(0);
+        num.erase(0, 1);
     }
+
     for(size_t i = 0; i < num.size(); i++)
     {
         if('9' < num[i] || num[i] < '0') IsNotNumber;
@@ -61,13 +62,13 @@ bigint::bigint(const char* num)
 
     if(n[0] == '-')
     {
-        n.erase(0);
+        n.erase(0, 1);
         isminus = true;
     }
 
     while(n[0] == '0')
     {
-        n.erase(0);
+        n.erase(0, 1);
     }
 
     for(size_t i = 0; i < n.size(); i++)
@@ -213,6 +214,14 @@ std::ostream& operator<<(std::ostream& os, const bigint& num)
     if(num.isminus) os << '-';
     os << num.num;
     return os;
+}
+
+std::istream& operator>>(std::istream& is, bigint& num)
+{
+    std::string tmp;
+    is >> tmp;
+    num = tmp;
+    return is;
 }
 
 bool bigint::operator==(const bigint& num) const
