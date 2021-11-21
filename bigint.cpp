@@ -122,7 +122,7 @@ public:
         {
             return num2 - (-num1);
         }
-        if(num2.isminus && !num1.isminus)
+        if(!num1.isminus && num2.isminus)
         {
             return num1 - (-num2);
         }
@@ -154,30 +154,6 @@ public:
         return result;
     }
 
-    friend bigint operator+(const bigint& num1, int num2)
-    {
-        bigint tmp(num2);
-        return (num1 + tmp);
-    }
-
-    friend bigint operator+(const bigint& num1, long long int num2)
-    {
-        bigint tmp(num2);
-        return (num1 + tmp);
-    }
-
-    friend bigint operator+(const bigint& num1, std::string num2)
-    {
-        bigint tmp(num2);
-        return (num1 + tmp);
-    }
-
-    friend bigint operator+(const bigint& num1, const char* num2)
-    {
-        bigint tmp(num2);
-        return (num1 + tmp);
-    }
-
     friend bigint operator-(const bigint& num1, const bigint& num2)
     {
         if(!num1.isminus && num2.isminus)
@@ -193,6 +169,11 @@ public:
             return ((-num2) - (-num1));
         }
 
+        if(num1 < num2)
+        {
+            return -(num2 - num1);
+        }
+
         bigint result;
         std::string n1 = num1.num;
         std::string n2 = num2.num;
@@ -204,8 +185,22 @@ public:
 
         for(int i = 0; i < n1.size() || i < n2.size(); i++)
         {
-            //todo 뺄셈구현
+            int first  = ((i < (int)n1.size())?n1[i]-'0':0);
+            int second = ((i < (int)n2.size())?n2[i]-'0':0);
+
+            if(first < second)
+            {
+                first+=10;
+                n1[i + 1]--;
+            }
+            result.num.push_back(first - second + '0');
         }
+
+        while(result.num.back() == '0') result.num.pop_back();
+
+        std::reverse(result.num.begin(), result.num.end());
+
+        if(result.num.empty()) result.num = "0";
 
         return result;
     }
@@ -302,6 +297,12 @@ public:
     
     friend std::ostream& operator<<(std::ostream& os, const bigint& num)
     {
+        if(num.num == "0")
+        {
+            os << "0";
+            return os;
+        }
+
         if(num.isminus) os << '-';
         os << num.num;
         return os;
@@ -373,15 +374,15 @@ public:
 
     const bigint operator-()
     {
-        bigint tmp = num;
-        tmp.isminus = !tmp.isminus;
+        bigint tmp = *this;
+        tmp.isminus ^= 1;
         return tmp;
     }
 
     const bigint operator-() const
     {
-        bigint tmp = num;
-        tmp.isminus = !tmp.isminus;
+        bigint tmp = *this;
+        tmp.isminus ^= 1;
         return tmp;
     }
 };
