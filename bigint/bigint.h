@@ -32,6 +32,7 @@ public:
     bigint& operator=(const bigint& num);
 
     friend std::ostream& operator<<(std::ostream& os, const bigint& num);
+    friend std::istream& operator>>(std::istream& is, bigint& num);
 
     bool operator==(const bigint& num) const;
     bool operator<(const bigint& num) const;
