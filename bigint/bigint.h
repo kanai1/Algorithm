@@ -49,13 +49,17 @@ public:
     friend std::istream& operator>>(std::istream& is, bigint& num);
 
     bool operator==(const bigint& num) const;
-    bool operator<(const bigint& num) const;
-    bool operator>(const bigint& num) const;
+    bool operator<(const bigint& num)  const;
+    bool operator>(const bigint& num)  const;
+    
+    const bool isodd()  const { return num.back()&1; }
+    const bool iseven() const { return !(num.back()&1); }
 
     const bigint operator-();
     const bigint operator-() const;
 
     friend bigint abs(const bigint& num);
+
 
 private:
 
