@@ -16,6 +16,8 @@ bigint::bigint(int num)
         this->num.push_back((num % 10) + '0');
         num/=10;
     }
+    
+    if(this->num.empty()) this->num = "0";
 
     std::reverse(this->num.begin(), this->num.end());
 }
@@ -31,6 +33,8 @@ bigint::bigint(ll num)
         this->num.push_back((num % 10) + '0');
         num/=10;
     }
+    
+    if(this->num.empty()) this->num = "0";
 
     std::reverse(this->num.begin(), this->num.end());
 }
