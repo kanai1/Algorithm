@@ -260,6 +260,11 @@ bool bigint::operator==(const bigint& num) const
     return ((this->isminus == num.isminus) && (this->num == num.num));
 }
 
+bool bigint::operator!=(const bigint& num) const
+{
+    return !(*this == num);
+}
+
 bool bigint::operator<(const bigint& num) const
 {
     if(*this == num) return false;
@@ -299,6 +304,16 @@ bool bigint::operator>(const bigint& num) const
     if(*this == num) return false;
     if(*this < num)  return false;
     return true;
+}
+
+bool bigint::operator<=(const bigint& num) const
+{
+    return (*this == num) || (*this < num);
+}
+
+bool bigint::operator>=(const bigint& num) const
+{
+    return (*this == num) || (*this > num);
 }
 
 const bigint bigint::operator-()
