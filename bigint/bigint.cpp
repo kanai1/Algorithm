@@ -16,7 +16,7 @@ bigint::bigint(int num)
         this->num.push_back((num % 10) + '0');
         num/=10;
     }
-    
+
     if(this->num.empty()) this->num = "0";
 
     std::reverse(this->num.begin(), this->num.end());
@@ -33,7 +33,7 @@ bigint::bigint(ll num)
         this->num.push_back((num % 10) + '0');
         num/=10;
     }
-    
+
     if(this->num.empty()) this->num = "0";
 
     std::reverse(this->num.begin(), this->num.end());
@@ -114,10 +114,10 @@ bigint operator+(const bigint& num1, const bigint& num2)
     std::reverse(n1.begin(), n1.end());
     std::reverse(n2.begin(), n2.end());
 
-    for(int i = 0; i < (int)n1.length() || i < (int)n2.length(); i++)
+    for(size_t i = 0; i < (int)n1.length() || i < (int)n2.length(); i++)
     {
-        int first  = ((i < (int)n1.size())?n1[i]-'0':0);
-        int second = ((i < (int)n2.size())?n2[i]-'0':0);
+        int first  = ((i < n1.size())?n1[i]-'0':0);
+        int second = ((i < n2.size())?n2[i]-'0':0);
 
         result.num.push_back((first + second + upper)%10 + '0');
 
@@ -160,10 +160,10 @@ bigint operator-(const bigint& num1, const bigint& num2)
     std::reverse(n1.begin(), n1.end());
     std::reverse(n2.begin(), n2.end());
 
-    for(int i = 0; i < n1.size() || i < n2.size(); i++)
+    for(size_t i = 0; i < n1.size() || i < n2.size(); i++)
     {
-        int first  = ((i < (int)n1.size())?n1[i]-'0':0);
-        int second = ((i < (int)n2.size())?n2[i]-'0':0);
+        int first  = ((i < n1.size())?n1[i]-'0':0);
+        int second = ((i < n2.size())?n2[i]-'0':0);
 
         if(first < second)
         {
@@ -182,18 +182,55 @@ bigint operator-(const bigint& num1, const bigint& num2)
     return result;
 }
 
-/* 
 bigint operator*(const bigint& num1, const bigint& num2)
 {
     bigint result;
 
-    result.isminus = num1.isminus ^ num2.isminus;
+    bool isminus_tmp = num1.isminus ^ num2.isminus;
 
-    //todo 곱셈구현
+    int m = std::max(num1.length(), num2.length())/2;
 
-    return result;
+    bigint n1 = abs(num1);
+    bigint n2 = abs(num2);
+
+    if(m == 0)
+    {
+        int x = n1[0] - '0';
+        int y = n2[0] - '0';
+
+        result = (x * y);
+
+        if(isminus_tmp) return -bigint(result);
+        else return bigint(result);
+    }
+
+    std::string x1, x2, y1, y2;
+
+    while(n1.length() > n2.length()) n2.num = "0" + n2.num;
+    while(n1.length() < n2.length()) n1.num = "0" + n1.num;
+
+    bigint high1(n1.num.substr(0, n1.length() - m));
+    bigint high2(n2.num.substr(0, n2.length() - m));
+    bigint low1(n1.num.substr(n1.length() - m));
+    bigint low2(n2.num.substr(n2.length() - m));
+
+    bigint z2 = high1 * high2;
+    bigint z0 = low1 * low2;
+    bigint z1 = ((high1 + low1) * (high2 + low2)) - z2 - z0;
+
+    for(int i = 0; i < m; i++)
+    {
+        z2.num += "00";
+        z1.num += "0";
+    }
+
+    result = z2 + z1 + z0;
+
+    if(isminus_tmp) return -bigint(result);
+    else return bigint(result);
 }
 
+/*
 bigint operator/(const bigint& num1, const bigint& num2)
 {
     bigint reuslt;
@@ -312,12 +349,12 @@ bool bigint::operator>(const bigint& num) const
 
 bool bigint::operator<=(const bigint& num) const
 {
-    return (*this == num) || (*this < num);
+    return (*this < num) || (*this == num);
 }
 
 bool bigint::operator>=(const bigint& num) const
 {
-    return (*this == num) || (*this > num);
+    return (*this > num) || (*this == num);
 }
 
 const bigint bigint::operator-()
