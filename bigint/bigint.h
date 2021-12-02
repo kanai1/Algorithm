@@ -24,7 +24,7 @@ public:
 
     friend bigint operator+(const bigint& num1, const bigint& num2);
     friend bigint operator-(const bigint& num1, const bigint& num2);
-    // friend bigint operator*(const bigint& num1, const bigint& num2);
+    friend bigint operator*(const bigint& num1, const bigint& num2);
     // friend bigint operator/(const bigint& num1, const bigint& num2);
     // friend bigint operator%(const bigint& num1, const bigint& num2);
 
@@ -35,7 +35,7 @@ public:
 
     friend bigint operator+=(bigint& num1, const bigint& num2) { return num1 = num1 + num2; }
     friend bigint operator-=(bigint& num1, const bigint& num2) { return num1 = num1 - num2; }
-    // friend bigint operator*=(bigint& num1, const bigint& num2) { return num1 = num1 * num2; }
+    friend bigint operator*=(bigint& num1, const bigint& num2) { return num1 = num1 * num2; }
     // friend bigint operator/=(bigint& num1, const bigint& num2) { return num1 = num1 / num2; }
     // friend bigint operator%=(bigint& num2, const bigint& num2) { return num1 = num1 % num2; }
 
