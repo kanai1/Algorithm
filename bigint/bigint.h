@@ -22,8 +22,6 @@ public:
     bigint(const char* num);
     bigint(const bigint& other);
 
-    size_t length() const { return num.size(); };
-
     friend bigint operator+(const bigint& num1, const bigint& num2);
     friend bigint operator-(const bigint& num1, const bigint& num2);
     // friend bigint operator*(const bigint& num1, const bigint& num2);
@@ -49,8 +47,11 @@ public:
     friend std::istream& operator>>(std::istream& is, bigint& num);
 
     bool operator==(const bigint& num) const;
+    bool operator!=(const bigint& num) const;
     bool operator<(const bigint& num)  const;
     bool operator>(const bigint& num)  const;
+    bool operator<=(const bigint& num)  const;
+    bool operator>=(const bigint& num)  const;
     
     const bool isodd()  const { return num.back()&1; }
     const bool iseven() const { return !(num.back()&1); }
@@ -63,6 +64,7 @@ public:
 
 private:
 
+    size_t length() const { return num.size(); };
     const char operator[](int index) const { return num[index]; };
     const char at(int index) const;
 };
