@@ -226,20 +226,69 @@ bigint operator*(const bigint& num1, const bigint& num2)
 
     result = z2 + z1 + z0;
 
+    while(result.num[0] == '0') result.num.erase(0, 1);
+
     if(isminus_tmp) return -bigint(result);
     else return bigint(result);
 }
 
-/*
 bigint operator/(const bigint& num1, const bigint& num2)
 {
-    bigint reuslt;
+    if(num2 == 0) throw "division by zero";
+    if(abs(num1) < abs(num2)) return bigint(0);
 
-    //todo 나눗셈 구현
+    bigint result(0);
+
+    bigint n1(num1);
+
+    while(abs(n1) > abs(num2))
+    {
+        bool isminus_tmp = n1.isminus ^ num2.isminus;
+
+        int first  = n1[0] - '0';
+        int second = num2[0] - '0';
+        size_t first_length  = n1.length();
+        size_t second_length = num2.length();
+
+        if(first < second)
+        {
+            first *= 10;
+            first += (n1[1] - '0');
+            first_length--;
+        }
+
+        bigint tmp(first / second);
+
+        for(int i = second_length; i < first_length; i++) tmp.num += "0";
+
+        if(isminus_tmp)
+        {
+            result -= tmp;
+            n1 += tmp * num2;
+        }
+        else
+        {
+            result += tmp;
+            n1 -= tmp * num2;
+        }
+    }
+
+    if(n1 == 0) return result;
+
+    while(n1.isminus && (n1.isminus ^ num1.isminus))
+    {
+        n1 += num2;
+        result--;
+    }
+
+    while(!n1.isminus && (n1.isminus ^ num1.isminus))
+    {
+        n1 -= num2;
+        result++;
+    }
 
     return result;
 }
-*/
 
 bigint bigint::operator++(int)
 {
