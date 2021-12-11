@@ -37,9 +37,10 @@ public:
     friend matrix operator-(const matrix& mt1, const matrix& mt2);
     friend matrix operator*(const matrix& mt1, const matrix& mt2);
 
-    friend matrix transopse(const matrix& mt);
-    friend long long det(const matrix& mt);
-    friend long long trace(const matrix& mt);
+    // matrix transopse(const matrix& mt);
+    // long long det(const matrix& mt) const;
+    // long long trace(const matrix& mt);
+    matrix submtx(int r_s, int c_s, int r_e, int c_e);
 
     matrix_size size() const { return m_size; }
 
