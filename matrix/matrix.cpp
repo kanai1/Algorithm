@@ -161,15 +161,15 @@ matrix operator*(const matrix& mt1, const matrix& mt2)
     return result;
 }
 
-long long matrix::det(const matrix& mt) const
-{
-    if(mt.m_size.col != mt.m_size.row)
-    {
-        throw "out of size";
-    }
+// long long matrix::det(const matrix& mt) const
+// {
+//     if(mt.m_size.col != mt.m_size.row)
+//     {
+//         throw "out of size";
+//     }
 
 
-}
+// }
 
 matrix matrix::submtx(int r_s, int c_s, int r_e, int c_e)
 {
@@ -182,7 +182,7 @@ matrix matrix::submtx(int r_s, int c_s, int r_e, int c_e)
 
     for(int i = 0; i < result.m_size.row; i++)
     {
-        for(int j = 0; j < result.m_size.col; i++)
+        for(int j = 0; j < result.m_size.col; ++)
         {
             result.data[i][j] = data[i + r_s - 1][j + c_s - 1];
         }
