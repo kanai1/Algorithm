@@ -138,6 +138,59 @@ matrix operator-(const matrix& mt1, const matrix& mt2)
     return result;
 }
 
+matrix operator*(const matrix& mt1, const matrix& mt2)
+{
+    if(mt1.m_size.col != mt2.m_size.row)
+    {
+        throw "out of size";
+    }
+
+    matrix result(mt1.m_size.row, mt2.m_size.col);
+
+    for(int i = 0; i < mt1.m_size.row; i++)
+    {
+        for(int j = 0; j < mt2.m_size.col; j++)
+        {
+            for(int k = 0; k < mt1.m_size.col; k++)
+            {
+                result.data[i][j] += mt1.data[i][k] * mt2.data[k][j];
+            }
+        }
+    }
+
+    return result;
+}
+
+long long matrix::det(const matrix& mt) const
+{
+    if(mt.m_size.col != mt.m_size.row)
+    {
+        throw "out of size";
+    }
+
+
+}
+
+matrix matrix::submtx(int r_s, int c_s, int r_e, int c_e)
+{
+    if(m_size.row < r_s || r_s > r_e || m_size.col < c_s || c_s > c_e)
+    {
+        throw "out of size";
+    }
+
+    matrix result(r_e - r_s + 1, c_e - c_s + 1);
+
+    for(int i = 0; i < result.m_size.row; i++)
+    {
+        for(int j = 0; j < result.m_size.col; i++)
+        {
+            result.data[i][j] = data[i + r_s - 1][j + c_s - 1];
+        }
+    }
+
+    return result;
+}
+
 long long& matrix::element(int x, int y)
 {
     if(x <= 0 || x > m_size.row || y <= 0 || y > m_size.col)
